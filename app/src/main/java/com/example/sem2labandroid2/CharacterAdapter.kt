@@ -6,16 +6,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.LayoutRes
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class CharacterAdapter: RecyclerView.Adapter<BaseCharacterViewHolder> () {
-    private  val characters = mutableListOf<Character>()
-    fun updateCharacters(newCharacters: List<Character>) {
-        characters.clear()
-        characters.addAll(newCharacters)
-        notifyDataSetChanged()
-    }
+class CharacterAdapter : ListAdapter<Character, BaseCharacterViewHolder>(CharacterDiffCallback()) {
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseCharacterViewHolder {
         return when (viewType) {
@@ -25,14 +21,14 @@ class CharacterAdapter: RecyclerView.Adapter<BaseCharacterViewHolder> () {
         }
     }
 
-    override fun onBindViewHolder(holder: BaseCharacterViewHolder, position: Int) {
-        holder.bind(characters[position])
+    override  fun onBindViewHolder(holder: BaseCharacterViewHolder, position: Int) {
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int = characters.size
+
 
     override fun getItemViewType(position: Int): Int {
-        return when (characters[position].species.lowercase()) {
+        return when (getItem(position).species.lowercase()) {
             "human" -> VIEW_TYPE_HUMAN
             "alien" -> VIEW_TYPE_ALIEN
             else -> VIEW_TYPE_OTHER
@@ -50,14 +46,14 @@ class CharacterAdapter: RecyclerView.Adapter<BaseCharacterViewHolder> () {
     }
 }
 
-abstract  class  BaseCharacterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    abstract  fun bind(character: Character)
+abstract class BaseCharacterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    abstract fun bind(character: Character)
 }
 
 class HumanViewHolder(itemView: View) : BaseCharacterViewHolder(itemView) {
     private val portraitImageView: ImageView = itemView.findViewById(R.id.ivCharacter_icon)
     private val nameTextView: TextView = itemView.findViewById(R.id.tvName)
-    private val  speciesTextView: TextView = itemView.findViewById(R.id.tvSpecies)
+    private val speciesTextView: TextView = itemView.findViewById(R.id.tvSpecies)
     private val originTextView: TextView = itemView.findViewById(R.id.tvAdditonal)
 
     override fun bind(character: Character) {
@@ -76,7 +72,7 @@ class HumanViewHolder(itemView: View) : BaseCharacterViewHolder(itemView) {
 class AlienViewHolder(itemView: View) : BaseCharacterViewHolder(itemView) {
     private val portraitImageView: ImageView = itemView.findViewById(R.id.ivCharacter_icon)
     private val nameTextView: TextView = itemView.findViewById(R.id.tvName)
-    private val  speciesTextView: TextView = itemView.findViewById(R.id.tvSpecies)
+    private val speciesTextView: TextView = itemView.findViewById(R.id.tvSpecies)
     private val planetTextView: TextView = itemView.findViewById(R.id.tvAdditonal)
 
     override fun bind(character: Character) {
@@ -94,7 +90,7 @@ class AlienViewHolder(itemView: View) : BaseCharacterViewHolder(itemView) {
 class OtherViewHolder(itemView: View) : BaseCharacterViewHolder(itemView) {
     private val portraitImageView: ImageView = itemView.findViewById(R.id.ivCharacter_icon)
     private val nameTextView: TextView = itemView.findViewById(R.id.tvName)
-    private val  speciesTextView: TextView = itemView.findViewById(R.id.tvSpecies)
+    private val speciesTextView: TextView = itemView.findViewById(R.id.tvSpecies)
     private val typeTextView: TextView = itemView.findViewById(R.id.tvAdditonal)
 
     override fun bind(character: Character) {

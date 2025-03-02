@@ -30,17 +30,17 @@ class MainActivity : AppCompatActivity() {
         getCharacters()
 
     }
-    fun initialiseRecyclerView() {
+    private fun initialiseRecyclerView() {
         val recyclerView: RecyclerView = findViewById(R.id.rView)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
     }
-    fun observeCharacterList() {
+    private fun observeCharacterList() {
         viewModel.characterData.observe(this) { characters ->
-            adapter.updateCharacters(characters)
+            adapter.submitList(characters)
         }
     }
-    fun getCharacters() {
+    private fun getCharacters() {
         viewModel.fetchCharacters()
     }
 }

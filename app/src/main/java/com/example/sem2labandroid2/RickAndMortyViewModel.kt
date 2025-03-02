@@ -11,7 +11,7 @@ class RickAndMortyViewModel(
 ) : ViewModel() {
     private val _characterData = MutableLiveData<List<Character>>()
     val characterData: LiveData<List<Character>> = _characterData
-    public fun fetchCharacters() {
+     fun fetchCharacters() {
         viewModelScope.launch {
             try {
                 val characters = (1..20).map { id ->
