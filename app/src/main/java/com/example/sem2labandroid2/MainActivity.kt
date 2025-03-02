@@ -19,23 +19,28 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
     private val viewModel: RickAndMortyViewModel by viewModels()
-    private lateinit var adapter: CharacterAdapter
+    private var adapter: CharacterAdapter = CharacterAdapter()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        adapter = CharacterAdapter()
+        initialiseRecyclerView()
+        observeCharacterList()
+        getCharacters()
 
+    }
+    fun initialiseRecyclerView() {
         val recyclerView: RecyclerView = findViewById(R.id.rView)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
-
+    }
+    fun observeCharacterList() {
         viewModel.characterData.observe(this) { characters ->
             adapter.updateCharacters(characters)
         }
-
+    }
+    fun getCharacters() {
         viewModel.fetchCharacters()
     }
-
 }
