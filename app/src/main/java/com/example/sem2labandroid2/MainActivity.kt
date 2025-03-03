@@ -2,6 +2,8 @@ package com.example.sem2labandroid2
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
+import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -27,8 +29,15 @@ class MainActivity : AppCompatActivity() {
 
         initialiseRecyclerView()
         observeCharacterList()
-        getCharacters()
 
+
+        findViewById<Button>(R.id.btnGetCharacters).setOnClickListener {
+            val start = findViewById<EditText>(R.id.etStart).text.toString()
+            val end = findViewById<EditText>(R.id.etEnd).text.toString()
+            if (start.isNotEmpty() && end.isNotEmpty()) {
+                getCharacters(start, end)
+            }
+        }
     }
     private fun initialiseRecyclerView() {
         val recyclerView: RecyclerView = findViewById(R.id.rView)
@@ -40,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             adapter.submitList(characters)
         }
     }
-    private fun getCharacters() {
-        viewModel.fetchCharacters()
+    private fun getCharacters(start: String, end: String) {
+        viewModel.fetchCharacters(start.toInt(), end.toInt())
     }
 }
