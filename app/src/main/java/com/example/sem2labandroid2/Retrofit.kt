@@ -16,6 +16,7 @@ object RetrofitClient {
             .create(RickAndMortyApi::class.java)
     }
 }
+
 interface RickAndMortyApi {
     @GET("character/{id}")
     suspend fun getCharacter(@Path("id") id: Int): Character

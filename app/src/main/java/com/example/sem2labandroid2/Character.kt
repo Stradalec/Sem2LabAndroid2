@@ -1,4 +1,5 @@
 package com.example.sem2labandroid2
+
 import kotlinx.serialization.Serializable
 
 

@@ -21,10 +21,9 @@ class CharacterAdapter : ListAdapter<Character, BaseCharacterViewHolder>(Charact
         }
     }
 
-    override  fun onBindViewHolder(holder: BaseCharacterViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BaseCharacterViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
-
 
 
     override fun getItemViewType(position: Int): Int {
