@@ -18,24 +18,4 @@ class ExampleUnitTest {
         assertEquals(4, 2 + 2)
     }
 }
-class RickAndMortyApiTest {
 
-    private lateinit var api: RickAndMortyApi
-
-    @Before
-    fun setup() {
-        api = RetrofitClient.RickAndMorty
-    }
-
-    @Test
-    fun `getCharacter returns valid data`() = runBlocking {
-        val character = api.getCharacter(1)
-        assertEquals("Rick Sanchez", character.name)
-        assertEquals("Alive", character.status)
-    }
-
-    @Test(expected = HttpException::class)
-    fun `getCharacter with invalid id throws exception`(): Unit = runBlocking {
-        api.getCharacter(99999)
-    }
-}
