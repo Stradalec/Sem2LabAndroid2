@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
         initialiseRecyclerView()
         observeCharacterList()
 
-
         findViewById<Button>(R.id.btnGetCharacters).setOnClickListener {
             val start = findViewById<EditText>(R.id.etStart).text.toString()
             val end = findViewById<EditText>(R.id.etEnd).text.toString()
