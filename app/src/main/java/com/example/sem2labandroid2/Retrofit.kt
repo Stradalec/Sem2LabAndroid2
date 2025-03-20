@@ -7,11 +7,14 @@ import retrofit2.http.Path
 
 object RetrofitClient {
     val RickAndMorty: RickAndMortyApi by lazy {
-        Retrofit.Builder()
+        createRetrofit().create(RickAndMortyApi::class.java)
+
+    }
+    private fun createRetrofit() : Retrofit {
+        return Retrofit.Builder()
             .baseUrl("https://rickandmortyapi.com/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(RickAndMortyApi::class.java)
     }
 }
 
