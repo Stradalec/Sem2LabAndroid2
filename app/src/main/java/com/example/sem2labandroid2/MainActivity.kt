@@ -10,8 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
-    private val viewModel: RickAndMortyViewModel by viewModels()
+    private val viewModel: MainActivityViewModel by viewModels()
     private var adapter: CharacterAdapter = CharacterAdapter()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

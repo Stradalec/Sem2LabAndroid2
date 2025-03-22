@@ -40,13 +40,13 @@ class RickAndMortyViewModelTest {
 
     private val testDispatcher = TestCoroutineDispatcher()
     private lateinit var api: RickAndMortyApi
-    private lateinit var viewModel: RickAndMortyViewModel
+    private lateinit var viewModel: MainActivityViewModel
 
     @Before
     fun setup() {
         Dispatchers.setMain(testDispatcher)
         api = mockk()
-        viewModel = RickAndMortyViewModel(api)
+        viewModel = MainActivityViewModel(api)
     }
 
     @After
@@ -56,7 +56,7 @@ class RickAndMortyViewModelTest {
     }
 
     @Test
-    fun fetchCharactersNetworkError() = runTest {
+    fun mainActivityViewModel_fetchCharactersNetwork_Error() = runTest {
         coEvery { api.getCharacter(1) } throws IOException("Network error")
 
         viewModel.fetchCharacters(1, 2)
@@ -65,7 +65,7 @@ class RickAndMortyViewModelTest {
         assert(viewModel.error.value == "Ошибка сети. Проверьте подключение к интернету.")
     }
     @Test
-    fun fetchCharactersSuccess() = runTest {
+    fun mainActivityViewModel_fetchCharactersNetwork_Success() = runTest {
         val mockCharacter1 = mockk<Character>()
         val mockCharacter2 = mockk<Character>()
         coEvery { api.getCharacter(1) } returns mockCharacter1
@@ -78,7 +78,7 @@ class RickAndMortyViewModelTest {
         assert(viewModel.characterData.value == listOf(mockCharacter1, mockCharacter2))
     }
     @Test
-    fun fetchCharactersUpdatesUI() = runTest {
+    fun mainActivityViewModel_fetchCharactersUI_Success() = runTest {
         val mockCharacter = mockk<Character>()
         coEvery { api.getCharacter(any()) } returns mockCharacter
 
@@ -87,7 +87,7 @@ class RickAndMortyViewModelTest {
         assert(viewModel.characterData.value?.isNotEmpty() == true)
     }
     @Test
-    fun fetchCharactersHttpError() = runTest {
+    fun mainActivityViewModel_fetchCharactersHTTP_Error() = runTest {
         coEvery { api.getCharacter(1) } throws HttpException(Response.error<Any>(404, ResponseBody.create(null, "")))
 
         viewModel.fetchCharacters(1, 1)
@@ -95,7 +95,7 @@ class RickAndMortyViewModelTest {
         assert(viewModel.error.value?.startsWith("Ошибка сервера: 404") == true)
     }
     @Test
-    fun cancelJobOnCleared() = runTest {
+    fun mainActivityViewModel_cancelJob_Success() = runTest {
         val job = viewModel.viewModelScope.launch {
             viewModel.fetchCharacters(1, 100)
         }

@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
 
-class RickAndMortyViewModel(
+class MainActivityViewModel(
     private val service: RickAndMortyApi = RetrofitClient.RickAndMorty
 ) : ViewModel() {
     private val _characterData = MutableLiveData<List<Character>>()
@@ -16,6 +16,7 @@ class RickAndMortyViewModel(
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
+
     fun fetchCharacters(start: Int, end: Int) {
         viewModelScope.launch {
             try {

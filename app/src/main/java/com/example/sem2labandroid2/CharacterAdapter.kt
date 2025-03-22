@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide
 
 class CharacterAdapter : ListAdapter<Character, BaseCharacterViewHolder>(CharacterDiffCallback()) {
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseCharacterViewHolder {
         return when (viewType) {
             VIEW_TYPE_HUMAN -> HumanViewHolder(inflateView(R.layout.character_item, parent))
@@ -24,7 +23,6 @@ class CharacterAdapter : ListAdapter<Character, BaseCharacterViewHolder>(Charact
     override fun onBindViewHolder(holder: BaseCharacterViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
-
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position).species.lowercase()) {
