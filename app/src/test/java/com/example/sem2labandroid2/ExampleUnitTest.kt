@@ -1,8 +1,11 @@
 package com.example.sem2labandroid2
 
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
 import org.junit.Assert.*
+import org.junit.Before
+import retrofit2.HttpException
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -15,3 +18,4 @@ class ExampleUnitTest {
         assertEquals(4, 2 + 2)
     }
 }
+
